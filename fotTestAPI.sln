@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33414.496
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fotTestAPI", "fotTestAPI\fotTestAPI.csproj", "{DBF5C218-86A9-40B0-92BE-D53FFE25A365}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DBF5C218-86A9-40B0-92BE-D53FFE25A365}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBF5C218-86A9-40B0-92BE-D53FFE25A365}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBF5C218-86A9-40B0-92BE-D53FFE25A365}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBF5C218-86A9-40B0-92BE-D53FFE25A365}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {698CEC81-7F84-4A72-8B86-484A11A3AB85}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,66 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListModel>
+@{
+    if (Model?.Any() != true) { return; }
+}
+<div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 no-padding">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+ @foreach (var block in Model)
+    {
+        if (block?.ContentUdi == null) { continue; }
+        var data = block.Content;
+
+        @await Html.PartialAsync("blocklist/Components/" + data.ContentType.Alias, block)
+    }
+    
+</div>
+    <div class="swiper-button-next swiper-nav-ctrl next-ctrl">
+                        <i class="ion-ios-arrow-right"></i>
+                    </div>
+                    <div class="swiper-button-prev swiper-nav-ctrl prev-ctrl">
+                        <i class="ion-ios-arrow-left"></i>
+                    </div>
+                    <div class="swiper-pagination">
+</div>
+</div>
+</div>
+</div>
+
+
+
+small our approach:
+
+
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models
+
+@{
+    var content = (ContentModels.OurApproachSlider)Model.Content;
+   
+    var Image = content.Value<MediaWithCrops>("ourApproachSliderImg");
+    
+}
+
+
+                        <div class="swiper-slide">
+                            <div class="content">
+                                <div class="img">
+                                    <span class="imgio">
+                                        <div class="wow cimgio" data-delay="400"></div><img src="@Image.MediaUrl()" alt="">
+                                    </span>
+                                </div>
+                                <div class="cont">
+                                    <h6>
+                                        <a href="javascript:void(0)">
+                                             @content.Value("ourApproachTitle")
+                                        </a>
+                                    </h6>
+                                    <h4><a href="javascript:void(0)">@content.Value("ourApproachCaption")</a></h4>
+                                </div>
+                            </div>
+                        </div>
+
+
