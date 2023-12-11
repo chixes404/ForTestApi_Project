@@ -6,7 +6,7 @@ namespace fotTestAPI.Services
     {
 
         Task<IEnumerable<City>> GetCitiesAsync();
-        Task<IEnumerable<City>> GetCitiesAsync(string? name , string? searchQuery , int PageSize , int PageNumber);
+        Task<IEnumerable<City>> GetCitiesAsync(/*string? name ,*/ string? searchQuery , int PageSize , int PageNumber);
 
         Task<City?> GetCityAsync(int cityId, bool IsIncludePointOfInterest);
         Task<City?> GetSingleCityAsync(int cityId);

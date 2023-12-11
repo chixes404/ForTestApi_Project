@@ -274,10 +274,10 @@ namespace fotTestAPI.Controllers
 		//FILTER AND SEARCHING AND PAGINATION 
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CityDtoWithoutPointOfInterest>>> GetCityByName(string? name, string? searchQuery, int PageSize, int PageNumber)
+        public async Task<ActionResult<IEnumerable<CityDtoWithoutPointOfInterest>>> GetCityByName(/*string? name,*/ string? searchQuery, int PageSize, int PageNumber)
         {
 
-            var CityName = await _cityInfoRepository.GetCitiesAsync(name, searchQuery, PageSize , PageNumber);
+            var CityName = await _cityInfoRepository.GetCitiesAsync(/*name,*/ searchQuery, PageSize , PageNumber);
 
 
       

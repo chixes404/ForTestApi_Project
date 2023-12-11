@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using fotTestAPI.Entites;
 using fotTestAPI.Model;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace fotTestAPI.DbContexts
 {
-	public class CityInfoContext : DbContext
-	{
+	public class CityInfoContext : IdentityDbContext<ApplicationUser>
+    {
 		public DbSet<City> Cities { get; set; }
 		public DbSet<PointOfInterests>PointOfInterests { get; set; }
 	

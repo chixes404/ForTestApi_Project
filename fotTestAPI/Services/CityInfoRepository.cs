@@ -22,8 +22,8 @@ namespace fotTestAPI.Services
         }
 
 
-        // Search and Filter 
-            public async Task <IEnumerable<City>> GetCitiesAsync(string? name , string? searchQuery , int PageSize ,int PageNumber)
+        // Search and Filter and pagination
+            public async Task <IEnumerable<City>> GetCitiesAsync(/*string? name , */ string? searchQuery , int PageSize ,int PageNumber)    //11/28/2023   i comment filter code to try Search and pagination only 
             {
                 //if(string.IsNullOrEmpty(name) && string.IsNullOrWhiteSpace(searchQuery)) // i comment them in case of i use pagination and not use
                 //search query  
@@ -31,22 +31,23 @@ namespace fotTestAPI.Services
                 //    return await GetCitiesAsync();
                 //}
 
-                var collection = _context.Cities as IQueryable<City>;
-                if(!string.IsNullOrWhiteSpace(name))
-                {
-                    name = name.Trim();
-                    collection = collection.Where(c => c.Name == name);
-                }
-                if(!string.IsNullOrWhiteSpace(searchQuery))
-                {
-                    searchQuery= searchQuery.Trim();
-                    collection=collection.Where(a=>a.Name.Contains(searchQuery) || (a.Description!=null && a.Description.Contains(searchQuery)));
+                var collection = _context.Cities as IQueryable<City>;     
+                                                                                         /// this is filter implementation 
+                //if(!string.IsNullOrWhiteSpace(name))
+                //{
+                //    name = name.Trim();
+                //    collection = collection.Where(c => c.Name == name);
+                //}
+            if (!string.IsNullOrWhiteSpace(searchQuery))
+            {
+                searchQuery = searchQuery.Trim();
+                collection = collection.Where(a => a.Name.Contains(searchQuery) || (a.Description != null && a.Description.Contains(searchQuery)));
 
 
-                }
+            }
 
 
-                return await collection.OrderBy(x => x.Id).Skip(PageSize * (PageNumber - 1)).Take(PageSize).ToListAsync();
+            return await collection.OrderBy(x => x.Id).Skip(PageSize * (PageNumber - 1)).Take(PageSize).ToListAsync();
   
 
             }
