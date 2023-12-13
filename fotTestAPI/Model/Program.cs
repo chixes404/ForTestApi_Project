@@ -7,7 +7,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using fotTestAPI.Configuration;
-using fotTestAPI.Model;
 using Microsoft.AspNetCore.Identity;
 using System.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -15,6 +14,7 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using fotTestAPI.Model.Authentication;
 
 
 

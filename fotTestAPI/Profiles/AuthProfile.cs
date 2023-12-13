@@ -1,5 +1,5 @@
-﻿using fotTestAPI.Model;
-using AutoMapper;
+﻿using AutoMapper;
+using fotTestAPI.Model.Authentication;
 
 namespace fotTestAPI.Profiles
 {

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using fotTestAPI.Configuration;
 using fotTestAPI.Model;
+using fotTestAPI.Model.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -15,18 +16,23 @@ namespace fotTestAPI.Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMapper _mapper; // Inject IMapper
         private readonly Jwt _jwt;
+		private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AuthService(UserManager<ApplicationUser> userManager, IOptions<Jwt> jwt, IMapper mapper)
+
+		public AuthService(UserManager<ApplicationUser> userManager, IOptions<Jwt> jwt, RoleManager<IdentityRole> roleManager, IMapper mapper)
         {
             _userManager = userManager;
             _jwt = jwt.Value;
             _mapper = mapper; // Initialize IMapper
-        }
+            _roleManager = roleManager;
+
+
+		}    
 
         /*
          *  registerModel ==> the form user will fill 
          *  AuthModel ===> the response data after submission
-         *  ApplicationUser ==>
+         *  ApplicationUser ==> will assign in database
          * 
          * 
          * */
@@ -78,7 +84,66 @@ namespace fotTestAPI.Services
         }
 
 
-        private async Task<JwtSecurityToken> CreateJwtToken(ApplicationUser user)
+
+
+
+
+
+		public async Task<AuthModel> GetTokenAsync(TokenRequestModel model)
+		{
+			var authModel = new AuthModel();
+
+			var user = await _userManager.FindByEmailAsync(model.Email);
+
+			if (user is null || !await _userManager.CheckPasswordAsync(user, model.Password))
+			{
+				authModel.Message = "Email or Password is incorrect!";
+				return authModel;
+			}
+
+			var jwtSecurityToken = await CreateJwtToken(user);
+			var rolesList = await _userManager.GetRolesAsync(user);
+
+			authModel.IsAuthenticated = true;
+			authModel.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
+			authModel.Email = user.Email;
+			authModel.Username = user.UserName;
+			authModel.Expireson = jwtSecurityToken.ValidTo;
+			authModel.Roles = rolesList.ToList();
+
+			return authModel;
+		}
+
+
+
+		public async Task<string> AddRoleAsync(AddRoleModel model)
+		{
+			var user = await _userManager.FindByIdAsync(model.UserId);
+
+			if (user is null || !await _roleManager.RoleExistsAsync(model.Role))
+				return "Invalid user ID or Role";
+
+			if (await _userManager.IsInRoleAsync(user, model.Role))
+				return "User already assigned to this role";
+
+			var result = await _userManager.AddToRoleAsync(user, model.Role);
+
+			return result.Succeeded ? string.Empty : "Sonething went wrong";
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+		private async Task<JwtSecurityToken> CreateJwtToken(ApplicationUser user)
         {
             var userClaims = await _userManager.GetClaimsAsync(user);
             var roles = await _userManager.GetRolesAsync(user);

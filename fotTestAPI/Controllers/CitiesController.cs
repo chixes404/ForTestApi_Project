@@ -4,6 +4,7 @@ using fotTestAPI.DbContexts;
 using fotTestAPI.Entites;
 using fotTestAPI.Model;
 using fotTestAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.JsonPatch;
@@ -13,6 +14,7 @@ using System.Reflection.Metadata.Ecma335;
 
 namespace fotTestAPI.Controllers
 {
+	[Authorize(Roles = "Admin")]
 	[Route("api/Cities")]
 	[ApiController]
 	public class CitiesController : ControllerBase
@@ -31,7 +33,6 @@ namespace fotTestAPI.Controllers
             _cityInfoRepository = cityInfoRepository;
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
-
 
 		[HttpGet("GetCity")]
 		public async Task<ActionResult<IEnumerable<CityDtoWithoutPointOfInterest>>> GetCity()

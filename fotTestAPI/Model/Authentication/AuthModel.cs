@@ -1,4 +1,4 @@
-﻿namespace fotTestAPI.Model
+﻿namespace fotTestAPI.Model.Authentication
 {
     public class AuthModel
     {

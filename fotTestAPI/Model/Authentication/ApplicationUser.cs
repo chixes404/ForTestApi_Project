@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
-namespace fotTestAPI.Model
+namespace fotTestAPI.Model.Authentication
 {
     public class ApplicationUser : IdentityUser
     {
